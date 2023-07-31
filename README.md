@@ -1,1 +1,1 @@
-# Customer Relationship Management WebApp Using Django
+# Customer Relationship Management WebApp Using Django and MySQL
