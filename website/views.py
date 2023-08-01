@@ -11,16 +11,16 @@ def home(request):
         user = authenticate(request, username = username, password = password)
         if user:
             login(request, user)
-            messages.success(request, "You have been authenticated")
+            messages.success(request, "You have been authenticated...")
             return redirect('home')
         else:
             messages.success(request, "There was an error, please try again...")
             redirect('home')
     return render(request, 'home.html', context = {})
 
-def loginUser(request):
-    pass
 
 def logoutUser(request):
-    pass
+    logout(request)
+    messages.success(request, "You have been logged out...")
+    return redirect('home')
 
