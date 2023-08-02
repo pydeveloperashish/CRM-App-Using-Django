@@ -52,3 +52,15 @@ def registerUser(request):
     form = SignUpForm()
     context = {'form': form}
     return render(request, 'register.html', context = context)
+
+
+def customerRecord(request, pk):
+    if request.user.is_authenticated:
+        # look up customer record
+        customerRecord = Records.objects.get(id = pk)
+        context = {'customerRecord': customerRecord}
+        return render(request, 'record.html', context = context)
+    else:
+        messages.success(request, 'You must be Logged in to view that page...')
+        return redirect('home')
+    
