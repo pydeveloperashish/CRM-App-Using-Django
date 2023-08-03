@@ -57,9 +57,13 @@ def registerUser(request):
 def customerRecord(request, pk):
     if request.user.is_authenticated:
         # look up customer record
-        customerRecord = Records.objects.get(id = pk)
-        context = {'customerRecord': customerRecord}
-        return render(request, 'record.html', context = context)
+        try:
+            customerRecord = Records.objects.get(id = pk)
+            context = {'customerRecord': customerRecord}
+            return render(request, 'record.html', context = context)
+        except:
+            messages.success(request, 'Customer record not found...')
+            return redirect('home')
     else:
         messages.success(request, 'You must be Logged in to view that page...')
         return redirect('home')
@@ -86,6 +90,24 @@ def addRecord(request):
                 return redirect('home')
         context = {"form": form}
         return render(request, 'add_record.html', context = context)
+    else:
+        messages.success(request, 'You must be logged in to add a Record')
+        return redirect('home')
+    
+    
+    
+def updateRecord(request, pk):
+    if request.user.is_authenticated:
+        currentRecord = Records.objects.get(id = pk)
+        form = AddRecordForm(request.POST or None, 
+                             instance = currentRecord # Already filled up with previous record.
+                             )
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Record has been Updated!...')
+            return redirect('home')
+        context = {'form': form}
+        return render(request, 'update_record.html', context = context)
     else:
         messages.success(request, 'You must be logged in to add a Record')
         return redirect('home')

@@ -16,8 +16,9 @@
   </div>
 <br>
 <a href="{% url 'home' %}" class="btn btn-secondary me-2">Back</a>
-<a href="{% url 'delete_record' customerRecord.id %}" class="btn btn-danger">Delete</a>
+<a href="{% url 'delete_record' customerRecord.id %}" class="btn btn-danger me-2">Delete</a>
 
+<a href="{% url 'update_record' customerRecord.id %}" class="btn btn-success me-2">Update Record</a>
 
 
 {% endblock %}
