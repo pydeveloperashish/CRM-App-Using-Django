@@ -64,3 +64,13 @@ def customerRecord(request, pk):
         messages.success(request, 'You must be Logged in to view that page...')
         return redirect('home')
     
+    
+def deleteRecord(request, pk):
+    if request.user.is_authenticated:
+        delete_it = Records.objects.get(id = pk)
+        delete_it.delete()
+        messages.success(request, 'Record Deleted Successfully...')
+        return redirect('home')
+    else:
+        messages.success(request, 'You must be Logged in to do that...')
+        return redirect('home')
